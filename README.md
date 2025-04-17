@@ -11,3 +11,5 @@ do something like `npx http-server` in this folder to run the overlay
 add localhost:8081/index.html or whatever port it's on as a browser source
 
 congratulations. overlay achieved
+
+overlay included here by [freya amari](https://ko-fi.com/freyaamari)

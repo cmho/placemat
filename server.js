@@ -36,7 +36,6 @@ ws.addEventListener('message', (e) => {
 });
 
 const server = http.createServer((req, res) => {
-	console.log(req);
 	res.writeHead(200, {
 		'Content-Type': 'application/json',
 		'Access-Control-Allow-Origin': '*'
