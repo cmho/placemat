@@ -31,3 +31,35 @@ body {
   border-radius: 5px;
   margin-top: -3px;
 }
+
+#main {
+	color: black;
+	max-width: 400px;
+	margin: 25px auto;
+}
+
+#main form {
+	display: grid;
+	gap: 10px;
+	margin-top: 20px;
+}
+
+#main label {
+	display: block;
+	font-weight: bold;
+}
+
+#main input[type="text"],
+#main input[type="number"] {
+	width: 100%;
+}
+
+#main h2 {
+	margin-bottom: 0;
+	border-bottom: 1px black dotted;
+}
+
+#main p {
+	margin: 0;
+	font-size: 14px;
+}

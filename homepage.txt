@@ -1,0 +1,50 @@
+<main id="main">
+	<h2>Overlay Setup</h2>
+	<p>for stream.place | by <a href="https://bsky.app/profile/veryroundbird.house" target="_blank">veryroundbird.house</a> | <a href="https://ko-fi.com/veryroundbird" target="_blank">donate?</a></p>
+
+	<form method="GET">
+		<div class="form-row">
+			<label for="username">Username</label>
+			<input type="text" name="username" id="username" />
+		</div>
+		<div class="form-row">
+			<label for="image">Image Overlay</label>
+			<input type="text" name="image" id="image" />
+		</div>
+		<div class="form-row">
+			<label for="imagew">Image Width</label>
+			<input type="number" name="imagew" id="imagew" value="1920" />
+		</div>
+		<div class="form-row">
+			<label for="imageh">Image Height</label>
+			<input type="number" name="imageh" id="imageh" value="1080" />
+		</div>
+		<div class="form-row">
+			<label for="msgCount">Messages to Show</label>
+			<input type="number" name="msgCount" id="msgCount" value="5" />
+		</div>
+		<div class="form-row">
+			<label for="chatx">Chatbox Position X</label>
+			<input type="number" name="chatx" id="chatx" value="100" />
+		</div>
+		<div class="form-row">
+			<label for="chaty">Chatbox Position Y</label>
+			<input type="number" name="chaty" id="chaty" value="100" />
+		</div>
+		<div class="form-row">
+			<label for="chatw">Chatbox Width</label>
+			<input type="number" name="chatw" id="chatw" value="400" />
+		</div>
+		<div class="form-row">
+			<label for="chatw">Chatbox Height</label>
+			<input type="number" name="chath" id="chath" value="400" />
+		</div>
+		<div class="form-row">
+			<label for="color">Default Text Color</label>
+			<input type="color" name="color" id="color" value="#000000" />
+		</div>
+		<div class="form-row">
+			<button type="submit">Create Overlay</button>
+		</div>
+	</form>
+</main>
