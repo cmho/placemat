@@ -1,10 +1,14 @@
-import fastify from 'fastify';
+import Fastify from 'fastify';
 
 // ============ SETTINGS ============= //
 
 const port = 8080;
 
 // ================================== //
+
+const fastify = Fastify({
+  logger: true
+});
 
 fastify.get('/', (req, res) => {
   res.send({ hello: 'world' })
