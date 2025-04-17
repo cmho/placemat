@@ -41,7 +41,7 @@ const setupPage = () => {
 }
 
 const writeMessages = async () => {
-	const resp = await fetch('//spoverlay.veryroundbird.house/'+params.get("username"));
+	const resp = await fetch('//spoverlayapi.veryroundbird.house/'+params.get("username"));
 	const res = await resp.json();
 	res.slice(-1*msgsToShow).filter((msg) => {
 		return 'record' in msg && 'createdAt' in msg.record && Date.parse(msg.record.createdAt) > cursor;
