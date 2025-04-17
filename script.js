@@ -3,7 +3,6 @@ const hexRe = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(params.get("color
 
 // ============ SETTINGS ============= //
 
-const port = 8080;
 const overlayImage = params.get("image") ? params.get("image") : 'freyaamari.png';
 const overlayWidth = params.get("imagew") ? params.get("imagew")+"px" : "1920px";
 const overlayHeight = params.get("imageh") ? params.get("imageh")+"px" : "1080px";
@@ -42,7 +41,7 @@ const setupPage = () => {
 }
 
 const writeMessages = async () => {
-	const resp = await fetch('//localhost:'+port+'/'+params.get("username"));
+	const resp = await fetch('//spoverlay.veryroundbird.house/'+params.get("username"));
 	const res = await resp.json();
 	res.slice(-1*msgsToShow).filter((msg) => {
 		return 'record' in msg && 'createdAt' in msg.record && Date.parse(msg.record.createdAt) > cursor;
