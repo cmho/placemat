@@ -1,3 +1,7 @@
+* {
+	box-sizing: border-box;
+}
+
 body {
 	margin: 0;
 	color: white;
@@ -12,24 +16,6 @@ body {
 
 #messages li {
 	margin-bottom: 20px;
-}
-
-.author {
-	font-weight: bold;
-	border: 1px white solid;
-	padding: 3px 5px;
-	border-radius: 3px;
-	display: inline-block;
-	background-color: black;
-}
-
-.msgContent {
-	margin-left: 15px;
-  padding: 5px;
-  background-color: white;
-  color: black;
-  border-radius: 5px;
-  margin-top: -3px;
 }
 
 #main {
@@ -62,4 +48,16 @@ body {
 #main p {
 	margin: 0;
 	font-size: 14px;
+}
+
+#main .help {
+	font-size: 12px;
+	color: rgba(0,0,0,.75);
+	margin: 0;
+}
+
+#main #followerControls {
+	margin-top: 10px;
+	display: grid;
+	gap: 10px;
 }

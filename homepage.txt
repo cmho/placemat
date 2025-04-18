@@ -12,6 +12,10 @@
 			<input type="text" name="image" id="image" />
 		</div>
 		<div class="form-row">
+			<label for="color">Default Text Color</label>
+			<input type="color" name="color" id="color" value="#000000" />
+		</div>
+		<div class="form-row">
 			<label for="imagew">Image Width</label>
 			<input type="number" name="imagew" id="imagew" value="1920" />
 		</div>
@@ -40,8 +44,45 @@
 			<input type="number" name="chath" id="chath" value="400" />
 		</div>
 		<div class="form-row">
-			<label for="color">Default Text Color</label>
-			<input type="color" name="color" id="color" value="#000000" />
+			<label for="showfollower">Show Latest Follower? <input type="checkbox" value="true" name="showfollower" id="showfollower" onchange="if (this.checked) { document.getElementById('followerControls').style.display = 'grid'; } else { document.getElementById('followerControls').style.display = 'none'; }" /></label>
+			<div id="followerControls" style="display: none">
+				<div class="form-row">
+					<label for="followerdisplay">Follower Display Type</label>
+					<select name="followerdisplay" id="followerdisplay">
+						<option value="handle">Handle (e.g. name.bsky.social)</option>
+						<option value="displayname">Display Name (e.g. Jane Smith)</option>
+					</select>
+				</div>
+				<div class="form-row">
+					<label for="followerx">Follower Font Size</label>
+					<input type="text" name="followersize" id="followersize" value="24px" />
+				</div>
+				<div class="form-row">
+					<label for="followerx">Follower Position X</label>
+					<input type="number" name="followerx" id="followerx" value="0" />
+				</div>
+				<div class="form-row">
+					<label for="followery">Follower Position Y</label>
+					<input type="number" name="followery" id="followery" value="0" />
+				</div>
+				<div class="form-row">
+					<label for="followerw">Follower Width</label>
+					<input type="number" name="followerw" id="followerw" value="200" />
+				</div>
+				<div class="form-row">
+					<label for="followerw">Follower Height</label>
+					<input type="number" name="followerh" id="followerh" value="16" />
+				</div>
+			</div>
+		</div>
+		<div class="form-row">
+			<label for="customtemplate">Custom Message Template</label>
+			<p class="help">Use {author} to print the author handle and {message} to print the message. The whole thing will be wrapped in a &lt;li&gt; element that has "even" or "odd" applied to it, alternating.</p>
+			<textarea id="customtemplate" name="customtemplate" style="width: 100%; height: 200px"></textarea>
+		</div>
+		<div class="form-row">
+			<label for="css">Additional CSS</label>
+			<textarea name="css" id="css" style="width: 100%; height: 200px"></textarea>
 		</div>
 		<div class="form-row">
 			<button type="submit">Create Overlay</button>
