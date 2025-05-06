@@ -22,7 +22,7 @@
 		</div>
 		<div class="form-row">
 			<label for="image">Image Overlay</label>
-			<p class="help"><details><summary>Need a stream overlay? Here's some links with free/cheap options:</summary>
+			<details class="help"><summary>Need a stream overlay? Here's some links with free/cheap options:</summary>
 				<ul>
 					<li><a href="https://ko-fi.com/freyaamari" target="_blank">Freya Amari</a></li>
 					<li><a href="https://kocha-design.booth.pm/" target="_blank">Kocha Design</a></li>
@@ -40,7 +40,7 @@
 					<li><a href="https://minozki.booth.pm/" target="_blank">Mooncape</a></li>
 					<li><a href="https://verxz.booth.pm/" target="_blank">VerXZ</a></li>
 				</ul>
-			</details></p>
+			</details>
 			<input type="text" name="image" id="image" />
 		</div>
 		<div class="form-row">
