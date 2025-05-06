@@ -17,7 +17,7 @@ fastify.get('/', (req, res) => {
 const messages = {};
 let cursor = 0;
 
-fastify.get('/:username', (req, res) => {
+fastify.get('/:username', async (req, res) => {
 	const { username } = req.params;
 	const ws = new WebSocket('wss://stream.place/api/websocket/'+username);
 	if (!(username in messages)) {
@@ -42,9 +42,10 @@ fastify.get('/:username', (req, res) => {
 	  }
 	});
 
-	ws.addEventListener('message', (e) => {
+	ws.addEventListener('message', async (e) => {
 		const data = JSON.parse(e.data);
-	  if (data['$type'] === "place.stream.chat.defs#messageView" && Date.parse(data["record"]["createdAt"]) > cursor) {
+	  if (data['$type'] === "place.stream.chat.defs#messageView"
+		&& Date.parse(data["record"]["createdAt"]) > cursor) {
 			messages[username].push(data);
 			cursor = Date.parse(data["record"]["createdAt"]);
 		}
@@ -57,8 +58,8 @@ fastify.get('/:username', (req, res) => {
 
 fastify.listen({ port: port }, (err, address) => {
   if (err) {
-    fastify.log.error(err)
-    process.exit(1)
+    fastify.log.error(err);
+    process.exit(1);
   }
   // Server is now listening on ${address}
 });

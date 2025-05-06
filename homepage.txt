@@ -1,6 +1,19 @@
 <main id="main">
 	<h2>Overlay Setup</h2>
 	<p>for stream.place | by <a href="https://bsky.app/profile/veryroundbird.house" target="_blank">veryroundbird.house</a> | <a href="https://ko-fi.com/veryroundbird" target="_blank">donate?</a></p>
+	
+	<div id="presetControls">
+		<div>
+			<label for="presets">Preset</label>
+			<select name="presets" id="presets">
+				<option value="">New...</option>
+			</select>
+		</div>
+		<div>
+			<label for="renamePreset">Preset Name</label>
+			<input type="text" name="renamePreset" id="renamePreset" />
+		</div>
+	</div>
 
 	<form method="GET">
 		<div class="form-row">
@@ -9,6 +22,25 @@
 		</div>
 		<div class="form-row">
 			<label for="image">Image Overlay</label>
+			<p class="help"><details><summary>Need a stream overlay? Here's some links with free/cheap options:</summary>
+				<ul>
+					<li><a href="https://ko-fi.com/freyaamari" target="_blank">Freya Amari</a></li>
+					<li><a href="https://kocha-design.booth.pm/" target="_blank">Kocha Design</a></li>
+					<li><a href="https://harukonotsuki.booth.pm/" target="_blank">Ruko Shop</a></li>
+					<li><a href="https://tearie.booth.pm/" target="_blank">Hanamori Design</a></li>
+					<li><a href="https://okumono.booth.pm/" target="_blank">Okumono</a></li>
+					<li><a href="https://nyanmuwu.booth.pm/" target="_blank">something about us.</a></li>
+					<li><a href="https://bunnyitemshop.booth.pm/" target="_blank">Bunny Item Shop</a></li>
+					<li><a href="https://liodesignroom.booth.pm/" target="_blank">Lio's Design Room</a></li>
+					<li><a href="https://hyrshop.booth.pm/" target="_blank">Hiyori Shop</a></li>
+					<li><a href="https://omochikawashop.booth.pm/" target="_blank">omochikawashop</a></li>
+					<li><a href="https://ramune-material.com/" target="_blank">Ramune Material</a></li>
+					<li><a href="https://greatriver.booth.pm/" target="_blank">Great River Artelier</a></li>
+					<li><a href="https://nunki-shop.booth.pm/" target="_blank">Nunki Shop</a></li>
+					<li><a href="https://minozki.booth.pm/" target="_blank">Mooncape</a></li>
+					<li><a href="https://verxz.booth.pm/" target="_blank">VerXZ</a></li>
+				</ul>
+			</details></p>
 			<input type="text" name="image" id="image" />
 		</div>
 		<div class="form-row">
@@ -29,11 +61,11 @@
 		</div>
 		<div class="form-row">
 			<label for="chatx">Chatbox Position X</label>
-			<input type="number" name="chatx" id="chatx" value="100" />
+			<input type="number" name="chatx" id="chatx" value="1500" />
 		</div>
 		<div class="form-row">
 			<label for="chaty">Chatbox Position Y</label>
-			<input type="number" name="chaty" id="chaty" value="100" />
+			<input type="number" name="chaty" id="chaty" value="20" />
 		</div>
 		<div class="form-row">
 			<label for="chatw">Chatbox Width</label>
@@ -41,7 +73,7 @@
 		</div>
 		<div class="form-row">
 			<label for="chatw">Chatbox Height</label>
-			<input type="number" name="chath" id="chath" value="400" />
+			<input type="number" name="chath" id="chath" value="600" />
 		</div>
 		<div class="form-row">
 			<label for="showfollower">Show Latest Follower? <input type="checkbox" value="true" name="showfollower" id="showfollower" onchange="if (this.checked) { document.getElementById('followerControls').style.display = 'grid'; } else { document.getElementById('followerControls').style.display = 'none'; }" /></label>
@@ -54,16 +86,16 @@
 					</select>
 				</div>
 				<div class="form-row">
-					<label for="followerx">Follower Font Size</label>
+					<label for="followersize">Follower Font Size</label>
 					<input type="text" name="followersize" id="followersize" value="24px" />
 				</div>
 				<div class="form-row">
 					<label for="followerx">Follower Position X</label>
-					<input type="number" name="followerx" id="followerx" value="0" />
+					<input type="number" name="followerx" id="followerx" value="1300" />
 				</div>
 				<div class="form-row">
 					<label for="followery">Follower Position Y</label>
-					<input type="number" name="followery" id="followery" value="0" />
+					<input type="number" name="followery" id="followery" value="20" />
 				</div>
 				<div class="form-row">
 					<label for="followerw">Follower Width</label>
@@ -71,7 +103,41 @@
 				</div>
 				<div class="form-row">
 					<label for="followerw">Follower Height</label>
-					<input type="number" name="followerh" id="followerh" value="16" />
+					<input type="number" name="followerh" id="followerh" value="24" />
+				</div>
+			</div>
+		</div>
+		<div class="form-row">
+			<label for="showfeed">Show Feed? <input type="checkbox" value="true" name="showfeed" id="showfeed" onchange="if (this.checked) { document.getElementById('feedControls').style.display = 'grid'; } else { document.getElementById('feedControls').style.display = 'none'; }" /></label>
+			<div id="feedControls" style="display: none">
+				<div class="form-row">
+					<label for="feeduri">Feed URI</label>
+					<p class="help">This is going to look something like <code>at://did:plc:2sqok7oqqrhtmmmb5sulkrw2/app.bsky.feed.generator/aaaffrjyldgue</code>.</p>
+					<input type="text" name="feeduri" id="feeduri" />
+				</div>
+				<div class="form-row">
+					<label for="feedlimit">Feed Message Limit</label>
+					<input type="number" name="feedlimit" id="feedlimit" value="25" />
+				</div>
+				<div class="form-row">
+					<label for="feedsize">Feed Font Size</label>
+					<input type="text" name="feedsize" id="feedsize" value="16px" />
+				</div>
+				<div class="form-row">
+					<label for="feedx">Feed Position X</label>
+					<input type="number" name="feedx" id="feedx" value="20" />
+				</div>
+				<div class="form-row">
+					<label for="feedy">Feed Position Y</label>
+					<input type="number" name="feedy" id="feedy" value="20" />
+				</div>
+				<div class="form-row">
+					<label for="feedw">Feed Width</label>
+					<input type="number" name="feedw" id="feedw" value="400" />
+				</div>
+				<div class="form-row">
+					<label for="followerw">Feed Height</label>
+					<input type="number" name="feedh" id="feedh" value="600" />
 				</div>
 			</div>
 		</div>
@@ -81,11 +147,17 @@
 			<textarea id="customtemplate" name="customtemplate" style="width: 100%; height: 200px"></textarea>
 		</div>
 		<div class="form-row">
+			<label for="customhtml">Custom HTML</label>
+			<p class="help">Add any custom HTML you want here—e.g. if you want to display a hashtag, include a widget from somewhere, etc.</p>
+			<textarea id="customhtml" name="customhtml" style="width: 100%; height: 200px"></textarea>
+		</div>
+		<div class="form-row">
 			<label for="css">Additional CSS</label>
+			<p class="help">Some minimal styles will be applied if nothing is entered.</p>
 			<textarea name="css" id="css" style="width: 100%; height: 200px"></textarea>
 		</div>
 		<div class="form-row">
-			<button type="submit">Create Overlay</button>
+			<button type="button" id="preset-update">Save as Preset</button> <button type="submit">Create Overlay</button>
 		</div>
 	</form>
 </main>
