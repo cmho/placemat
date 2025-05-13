@@ -146,6 +146,48 @@ const setupPage = async () => {
 	}
 };
 
+const checkConditions = async (author, text) => {
+	if (author === user) {
+		const textMatchUpdate = text.match(/^!update ([a-zA-Z0-9_]+) ([0-9]+)/);
+		const textMatchAdd = text.match(/^!add ([a-zA-Z0-9_]+) (.*)/);
+		const textMatchDone = text.match(/!done ([a-zA-Z0-9_]+) (.*)/);
+		const textMatchRemove = text.match(/!remove ([a-zA-Z0-9_]+) (.*)/);
+		if (textMatchProgress) {
+			const container = document.getElementById(textMatchUpdate[1]);
+			const chartType = container.getAttribute('data-chart-type');
+			const progress = container.querySelector('.progress');
+			const color = container.getAttribute('data-fill-color');
+			const progressAmt = parseInt(textMatchUpdate[2]);
+			if (chartType === "circle") {
+				progress.style.backgroundImage = 'conic-gradient('+color+' '+progressAmt+'%, transparent '+progressAmt+'%)';
+			} else if (chartType === "bar") {
+				progress.querySelector('.inner').width = progressAmt+"%";
+			}
+		} else if (textMatchAdd) {
+			const container = document.getElementById(textMatchAdd[1]);
+			const newItem = document.createElement('li');
+			newItem.textContent = textMatchAdd[2];
+			container.querySelector('ul').append(newItem);
+		} else if (textMatchDone) {
+			const container = document.getElementById(textMatchDone[1]);
+			container.querySelector('ul').querySelectorAll('li').forEach((item) => {
+				if (item.textContent === textMatchAdd[2]) {
+					item.classList.add('done');
+					return;
+				}
+			});
+		} else if (textMatchRemove) {
+			const container = document.getElementById(textMatchRemove[1]);
+			container.querySelector('ul').querySelectorAll('li').forEach((item) => {
+				if (item.textContent === textMatchAdd[2]) {
+					item.remove();
+					return;
+				}
+			});
+		}
+	}
+};
+
 const writeMessages = async () => {
 	const resp = await fetch('https://spoverlayapi.veryroundbird.house/'+username);
 	const res = await resp.json();
@@ -164,6 +206,7 @@ const writeMessages = async () => {
     const color = msg.color;
     const msgContainer = document.createElement('li');
 		const messageList = document.getElementById('messages');
+		checkConditions(author, text);
     msgContainer.classList.add('message');
 		msgContainer.classList.add(even ? 'even' : 'odd');
 		messageList.append(msgContainer);
@@ -319,6 +362,111 @@ const createPresetListeners = () => {
 	});
 }
 
+const addWidgetListener = () => {
+	document.getElementById('add-widget').addEventListener('click', (e) => {
+		console.log('hello world!');
+		const widgetNumber = Array.from(document.getElementById('widgets').querySelectorAll('div')).length + 1;
+		const widgetType = document.getElementById('widgetType').value;
+		e.preventDefault();
+		const widget = document.createElement('div');
+		widget.classList.add('widget');
+		const deleteButton = document.createElement('button');
+		deleteButton.type = "button";
+		deleteButton.textContent = "Remove";
+		deleteButton.addEventListener('click', (e) => {
+			e.preventDefault();
+			e.target.parentElement.remove();
+		});
+		const idRow = document.createElement('div');
+		idRow.classList.add('form-row');
+		const idRowLabel = document.createElement('label');
+		idRowLabel.textContent = "Identifier";
+		const idRowHelp = document.createElement('p');
+		idRowHelp.classList.add('help');
+		idRowHelp.textContent = "Can contain letters, numbers, underscores, and dashes; must be unique.";
+		const idRowInput = document.createElement('input');
+		idRowInput.type = "text";
+		idRowInput.id = "widget-id-"+widgetNumber;
+		idRowInput.name = "widget-id-"+widgetNumber;
+		idRow.append(idRowLabel);
+		idRow.append(idRowHelp);
+		idRow.append(idRowInput);
+		widget.append(idRow);
+		if (widgetType === "list") {
+			// is it a checklist
+			// initial list items
+		} else {
+			const valueRow = document.createElement('div');
+			valueRow.classList.add('form-row');
+			const valueRowLabel = document.createElement('label');
+			valueRowLabel.textContent = "Starting Value";
+			const valueRowInput = document.createElement('input');
+			valueRowInput.type = "number";
+			valueRowInput.id = "widget-value-"+widgetNumber;
+			valueRowInput.name = "widget-value-"+widgetNumber;
+			valueRow.append(valueRowLabel);
+			valueRow.append(valueRowInput);
+			widget.append(valueRow);
+			const endRow = document.createElement('div');
+			endRow.classList.add('form-row');
+			const endRowLabel = document.createElement('label');
+			endRowLabel.textContent = "Max Value";
+			const endRowInput = document.createElement('input');
+			endRowInput.type = "number";
+			endRowInput.id = "widget-end-"+widgetNumber;
+			valueRowInput.name = "widget-end-"+widgetNumber;
+			endRow.append(endRowLabel);
+			endRow.append(endRowInput);
+			widget.append(endRow);
+			const preUnitsRow = document.createElement('div');
+			preUnitsRow.classList.add('form-row');
+			const preUnitsRowLabel = document.createElement('label');
+			preUnitsRowLabel.textContent = "Prepend Units";
+			const preUnitsRowInput = document.createElement('input');
+			preUnitsRowInput.type = "text";
+			preUnitsRowInput.id = "widget-preunits-"+widgetNumber;
+			preUnitsRowInput.name = "widget-preunits-"+widgetNumber;
+			preUnitsRow.append(preUnitsRowLabel);
+			preUnitsRow.append(preUnitsRowInput);
+			widget.append(preUnitsRow);
+			const postUnitsRow = document.createElement('div');
+			postUnitsRow.classList.add('form-row');
+			const postUnitsRowLabel = document.createElement('label');
+			postUnitsRowLabel.textContent = "Append Units";
+			const postUnitsRowInput = document.createElement('input');
+			postUnitsRowInput.type = "text";
+			postUnitsRowInput.id = "widget-postunits-"+widgetNumber;
+			postUnitsRowInput.name = "widget-postunits-"+widgetNumber;
+			postUnitsRow.append(postUnitsRowLabel);
+			postUnitsRow.append(postUnitsRowInput);
+			widget.append(postUnitsRow);
+			const progressColorRow = document.createElement('div');
+			progressColorRow.classList.add('form-row');
+			const progressColorRowLabel = document.createElement('label');
+			progressColorRowLabel.textContent = "Progress Color";
+			const progressColorRowInput = document.createElement('input');
+			progressColorRowInput.type = "color";
+			progressColorRowInput.id = "widget-progresscolor-"+widgetNumber;
+			progressColorRowInput.name = "widget-progresscolor-"+widgetNumber;
+			progressColorRow.append(progressColorRowLabel);
+			progressColorRow.append(progressColorRowInput);
+			widget.append(progressColorRow);
+			const bgColorRow = document.createElement('div');
+			bgColorRow.classList.add('form-row');
+			const bgColorRowLabel = document.createElement('label');
+			bgColorRowLabel.textContent = "Background Color";
+			const bgColorRowInput = document.createElement('input');
+			bgColorRowInput.type = "color";
+			bgColorRowInput.id = "widget-progresscolor-"+widgetNumber;
+			bgColorRowInput.name = "widget-progresscolor-"+widgetNumber;
+			bgColorRow.append(bgColorRowLabel);
+			bgColorRow.append(bgColorRowInput);
+			widget.append(bgColorRow);
+		}
+		document.getElementById('widgets').append(widget);
+	});
+}
+
 const pageSetup = async () => {
 	if (window.location.search !== "") {
 		await setupPage();
@@ -331,6 +479,7 @@ const pageSetup = async () => {
 		const html = await content.text();
 		document.body.innerHTML = html;
 		createPresetListeners();
+		addWidgetListener();
 		loadPresets();
 	}
 }
