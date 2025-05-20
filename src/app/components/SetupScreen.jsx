@@ -203,7 +203,7 @@ export default function SetupScreen () {
 			</details>
 			<div className={styles.presetControls}>
 				<div>
-					<label htmlFor="presets">Preset <button type="button">Import</button> <button type="button" onClick={exportData}>Export</button></label>
+					<label htmlFor="presets">Preset <button type="button" onClick={importInitiate}>Import</button> <button type="button" onClick={exportData}>Export</button></label>
 					<select name="presets" id="presets" ref={presetRef} onChange={() => loadPreset(presetRef.current.value)}>
 						<option key="new" value="">New...</option>
 							{presets ? Object.keys(presets)?.map((p, i) => {

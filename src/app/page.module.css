@@ -9,7 +9,10 @@
 }
 
 .importInput {
-	display: none;
+	width: 1px;
+	height: 1px;
+	text-indent: -100px;
+	position: fixed;
 }
 
 .faq {
