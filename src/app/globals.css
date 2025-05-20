@@ -8,29 +8,78 @@ body {
 	font-family: 'Geometria', sans-serif;
 }
 
+a {
+	text-decoration: underline dotted;
+	color: #B76B81;
+}
+
 p {
 	margin: 0;
 	font-size: 14px;
 }
 
-h2 {
+h1 {
 	margin-bottom: 0;
 	border-bottom: 1px black dotted;
+	display: flex;
+	width: 100%;
+	align-items: center;
 }
 
-h3 {
+h1 img {
+	margin-right: 10px;
+}
+
+h1 .tagline {
+	font-weight: normal;
+	margin-left: 10px;
+	border-left: 2px black solid;
+	padding-left: 10px;
+	font-size: .7em;
+}
+
+h2 {
 	font-size: 1.4em;
 	margin: 0;
 }
 
-h4 {
+h3 {
 	font-size: 1.2em;
 	margin: 0;
 }
 
-h5 {
+h4 {
 	font-size: 1.1em;
 	margin: 0;
+	border-bottom: 1px black dotted;
+}
+
+dl {
+	font-size: .8em;
+	margin: 0;
+}
+
+dt {
+	font-weight: bold;
+}
+
+dd {
+	margin: 0 0 1em;
+}
+
+details {
+	position: relative;
+	margin-top: 1em;
+}
+
+details[open]:before {
+	content: "";
+	position: absolute;
+	top: calc(1em + 14px);
+	left: .5em;
+	height: calc(100% - 14px - .5em);
+	width: 1px;
+	border-right: 1px black dotted;
 }
 
 details summary > * {
@@ -38,9 +87,35 @@ details summary > * {
 	margin: 0;
 }
 
-details {
-	display: grid;
-	gap: 1em;
+details summary {
+	border: 1px black dotted;
+	padding: 2px;
+	background-color: white;
+	position: relative;
+	z-index: 1;
+}
+
+details summary + * {
+	margin-top: .5em;
+}
+
+details summary h2,
+details summary h3,
+details summary h4 {
+	font-size: 1em;
+}
+
+details > .form-row {
+	margin-left: 1em;
+	margin-bottom: 1em;
+}
+
+details > .form-row:last-of-type {
+	margin-bottom: 0;
+}
+
+details details {
+	margin-left: 1em;
 }
 
 label {

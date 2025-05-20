@@ -1,0 +1,17 @@
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+.messages {
+	position: absolute;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.messages li {
+	margin-bottom: 20px;
+}

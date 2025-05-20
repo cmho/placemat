@@ -16,8 +16,8 @@ export default function Home() {
 	  );
 	};
 	
-	if (isObjectEmpty(params)) {
+	if (params.size === 0) {
 		return(<SetupScreen />);
-	}
-	return(<Overlay params={params} />);
+	} 
+	return(<Overlay />);
 }

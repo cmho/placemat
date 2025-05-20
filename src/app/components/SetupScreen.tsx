@@ -1,10 +1,15 @@
 'use client';
 
-import FormRow from './FormRow.tsx';
+import Image from 'next/image';
+import InputRow from './InputRow.tsx';
+import SelectRow from './SelectRow.tsx';
+import CheckboxRow from './CheckboxRow.tsx';
+import TextareaRow from './TextareaRow.tsx';
 import PresetControls from './PresetControls.tsx';
 import FormToggleSection from './FormToggleSection.tsx';
 import FormSection from './FormSection.tsx';
 import RepeatableWidgets from './RepeatableWidgets.tsx';
+import ListItemFormElements from './ListItemFormElements.tsx';
 import styles from "../page.module.css";
 import { useState, useEffect, useRef } from 'react';
 
@@ -21,40 +26,50 @@ export default function SetupScreen () {
 	
 	const followerDisplayOptions = [{value: "handle", label: "Handle (e.g. handle.bsky.social)"}, {value: "displayname", label: "Display Name (e.g. Jane Smith)"}];
 	
-	const presetRef = useRef(null);
-	const presetNameRef = useRef(null);
-	const usernameRef = useRef(null);
-	const imageRef = useRef(null);
-	const colorRef = useRef(null);
-	const imagewRef = useRef(1920);
-	const imagehRef = useRef(1080);
-	const msgcountRef = useRef(5);
-	const chatxRef = useRef(0);
-	const chatyRef = useRef(0);
-	const chatwRef = useRef('400px');
-	const chathRef = useRef('600px');
-	const showFollowerRef = useRef(null);
-	const followerdisplayRef = useRef('handle');
-	const followersizeRef = useRef('24px');
-	const followerxRef = useRef(0);
-	const followeryRef = useRef(0);
-	const followerwRef = useRef('200px');
-	const followerhRef = useRef('24px');
-	const showFeedRef = useRef(false);
-	const feeduriRef = useRef(true);
-	const feedlimitRef = useRef(10);
-	const feedxRef = useRef(0);
-	const feedyRef = useRef(0);
-	const feedwRef = useRef('400px');
-	const feedhRef = useRef('600px');
-	const showFollowerAlertsRef = useRef(false);
-	const alerttextRef = useRef('');
-	const htmlRef = useRef('');
-	const msgTemplateRef = useRef('');
-	const cssRef = useRef('');
+	const presetRef = useRef<HTMLSelectElement>(null);
+	const presetNameRef = useRef<HTMLInputElement>(null);
+	const usernameRef = useRef<HTMLInputElement>(null);
+	const imageRef = useRef<HTMLInputElement>(null);
+	const colorRef = useRef<HTMLInputElement>(null);
+	const imagewRef = useRef<HTMLInputElement>({value: 1920});
+	const imagehRef = useRef<HTMLInputElement>({value: 1080});
+	const msgcountRef = useRef<HTMLInputElement>({value: 5});
+	const chatxRef = useRef<HTMLInputElement>({value: 0});
+	const chatyRef = useRef<HTMLInputElement>({value: 0});
+	const chatwRef = useRef<HTMLInputElement>({value: '400px'});
+	const chathRef = useRef<HTMLInputElement>({value: '600px'});
+	const showFollowerRef = useRef<HTMLInputElement>({checked: false});
+	const followerdisplayRef = useRef<HTMLSelectElement>({value: 'handle'});
+	const followersizeRef = useRef<HTMLInputElement>({value: '24px'});
+	const followercolorRef = useRef<HTMLInputElement>({value: '#000000'});
+	const followerxRef = useRef<HTMLInputElement>({value: 0});
+	const followeryRef = useRef<HTMLInputElement>({value: 0});
+	const followerwRef = useRef<HTMLInputElement>({value: '200px'});
+	const followerhRef = useRef<HTMLInputElement>({value: '24px'});
+	const showFeedRef = useRef<HTMLInputElement>({checked: false});
+	const feeduriRef = useRef<HTMLInputElement>(null);
+	const feedlimitRef = useRef<HTMLInputElement>({value: 10});
+	const feedxRef = useRef<HTMLInputElement>({value: 0});
+	const feedyRef = useRef<HTMLInputElement>({value: 0});
+	const feedwRef = useRef<HTMLInputElement>({value: '400px'});
+	const feedhRef = useRef<HTMLInputElement>({value: '600px'});
+	const showFollowerAlertsRef = useRef<HTMLInputElement>({checked: false});
+	const alerttextRef = useRef<HTMLTextareaElement>({value: ''});
+	const alertimagesRef = useRef<string[]>([]);
+	const widgetsRef = useRef<object>({});
+	const htmlRef = useRef<HTMLTextareaElement>({value: ''});
+	const msgTemplateRef = useRef<HTMLTextareaElement>({value: ''});
+	const cssRef = useRef<HTMLTextareaElement>({value: ''});
+	const exportRef = useRef(null);
+	const importRef = useRef(null);
 	
 	const loadPreset = (name) => {
+		if (name === "") {
+			setCurrentPreset({widgets: {}});
+			return;
+		}
 		setCurrentPreset({...presets[name]});
+		widgetsRef.current = presets[name].widgets;
 	}
 	
 	const getPresetKey = () => {
@@ -75,8 +90,8 @@ export default function SetupScreen () {
 		const presetKey = getPresetKey();
 		newPresets[presetKey] = {...currentPreset};
 		if (presetRef.current.value !== "" && presetNameRef.current.value !== "") delete newPresets[presetRef.current.value];
-		presetRef.current.value = presetKey;
 		setPresets(newPresets);
+		presetRef.current.value = presetKey;
 	}
 	
 	const updateCurrentPreset = () => {
@@ -84,37 +99,75 @@ export default function SetupScreen () {
 			username: usernameRef.current.value,
 			image: imageRef.current.value,
 			textColor: colorRef.current.value,
-			imagew: imagewRef.current.value ? parseInt(imagewRef.current.value) : 1920,
-			imageh: imagehRef.current.value ? parseInt(imagehRef.current.value) : 1080,
-			msgcount: msgcountRef.current.value ? parseInt(msgcountRef.current.value) : 5,
-			chatx: chatxRef.current.value ? parseInt(chatxRef.current.value) : 0,
-			chaty: chatyRef.current.value ? parseInt(chatyRef.current.value) : 0,
-			chatw: chatwRef.current.value ? parseInt(chatwRef.current.value) : 400,
-			chath: chathRef.current.value ? parseInt(chathRef.current.value) : 600,
-			showFollower: showFollowerRef.current.checked ? true : false,
-			followerdisplay: followerdisplayRef.current.value,
-			followersize: followersizeRef.current.value,
-			followerx: followerxRef.current.value,
-			followery: followeryRef.current.value,
-			followerw: followerwRef.current.value,
-			followerh: followerhRef.current.value,
+			imagew: imagewRef.current.value ? imagewRef.current.valueAsNumber : 1920,
+			imageh: imagehRef.current.value ? imagehRef.current.valueAsNumber : 1080,
+			msgcount: msgcountRef.current.value ? msgcountRef.current.valueAsNumber : 5,
+			chatx: chatxRef.current.value ? chatxRef.current.valueAsNumber : 0,
+			chaty: chatyRef.current.value ? chatyRef.current.valueAsNumber : 0,
+			chatw: chatwRef.current.value ? chatwRef.current.valueAsNumber : 400,
+			chath: chathRef.current.value ? chathRef.current.valueAsNumber : 600,
+			showFollower: showFollowerRef.current?.checked,
+			followerdisplay: followerdisplayRef.current?.value,
+			followersize: followersizeRef.current?.value,
+			followerx: followerxRef.current?.value ? followerxRef.current?.valueAsNumber : 0,
+			followery: followeryRef.current?.value ? followeryRef.current?.valueAsNumber : 0,
+			followerw: followerwRef.current?.value ? followerwRef.current?.valueAsNumber : 0,
+			followerh: followerhRef.current?.value ? followerhRef.current?.valueAsNumber : 0,
 			showFeed: showFeedRef.current.checked ? true : false,
-			feeduri: feeduriRef.current.value,
-			feedlimit: feedlimitRef.current.value,
-			feedx: feedxRef.current.value,
-			feedy: feedyRef.current.value,
-			feedw: feedwRef.current.value,
-			feedh: feedhRef.current.value,
-			showFollowerAlerts: showFollowerAlertsRef.current.value,
-			alerttext: alerttextRef.current.value,
+			feeduri: feeduriRef.current?.value,
+			feedlimit: feedlimitRef.current?.value ? feedlimitRef.current?.valueAsNumber : 0,
+			feedx: feedxRef.current?.value ? feedxRef.current?.valueAsNumber : 0,
+			feedy: feedyRef.current?.value ? feedyRef.current?.valueAsNumber : 0,
+			feedw: feedwRef.current?.value ? feedwRef.current?.valueAsNumber : 0,
+			feedh: feedhRef.current?.value ? feedhRef.current?.valueAsNumber : 0,
+			showFollowerAlerts: showFollowerAlertsRef.current?.checked,
+			alerttext: alerttextRef.current?.value,
+			alertimages: alertimagesRef.current,
+			widgets: widgetsRef,
 			css: cssRef.current.value,
 			customhtml: htmlRef.current.value,
 			customtemplate: msgTemplateRef.current.value
 		});
 	}
 	
+	const getWidgetInfo = (groupName: string, widgets: object) => {
+		const newCurrent = {...currentPreset, [groupName]: widgets};
+		setCurrentPreset(newCurrent);
+	}
+	
+	const exportData = () => {
+		const presetsStored = localStorage.getItem("presets");
+		const blob = new Blob([presetsStored], {type: 'octet/stream'});
+		const url = window.URL.createObjectURL(blob);
+		exportRef.current.download = "placemat.json";
+		exportRef.current.href = url;
+		exportRef.current.click();
+		window.URL.revokeObjectURL(url);
+	}
+	
+	const importInitiate = () => {
+		importRef.current.click();
+	}
+	
+	const processImport = () => {
+		const json = JSON.parse(importRef.current.files[0].getAsDataURL());
+		const presetData = {...presets};
+		Object.keys(json).forEach((preset) => {
+			let keyname = preset;
+			while (keyname in presetData) {
+				if (confirm('A preset named '+preset+' already exists. Do you want to overwrite?')) {
+					break;
+				} else {
+					keyname = prompt('Enter a new name for this preset:');
+				}
+			}
+			presetData[keyname] = json[preset];
+		});
+		alert("Import complete!");
+	}
+	
 	useEffect(() => {
-		if (presets === {} && localStorage.getItem('presets') || localStorage.getItem('presets') === "{}" && Object.keys(presets).length > 0) {
+		if (JSON.stringify(presets) !== "{}") {
 			localStorage.setItem('presets', JSON.stringify(presets));
 			return;
 		}
@@ -123,11 +176,34 @@ export default function SetupScreen () {
 	
 	return (
     <main className={styles.main}>
-			<h2>Overlay Setup</h2>
-			<p>for stream.place | by <a href="https://bsky.app/profile/veryroundbird.house" target="_blank">veryroundbird.house</a> | <a href="https://ko-fi.com/veryroundbird" target="_blank">donate?</a></p>
+			<h1>
+				<Image src="/placemat-logo.png" alt="" width={50} height={50} />
+				Placemat<span className="tagline">Stream Overlay</span>
+			</h1>
+			<a className={styles.exportLink} id="exportLink" ref={exportRef}>Export</a>
+			<input className={styles.importInput} type="file" id="importInput" ref={importRef} onChange={processImport} />
+			<p>for <a href="https://stream.place" target="_blank">stream.place</a> | by <a href="https://bsky.app/profile/veryroundbird.house" target="_blank"><span className="no-sr" aria-hidden="true">🦋</span> veryroundbird.house</a> | <a href="https://ko-fi.com/veryroundbird" target="_blank"><span className="no-sr" aria-hidden="true">☕️</span> donate?</a></p>
+			<details className={styles.faq}><summary><h2>FAQ</h2></summary>
+			<dl>
+				<dt>Will this ever have file upload?</dt>
+				<dd>Short answer no; long answer file hosting at scale is easily the most expensive-driving aspect of any web application (right now it doesn't even require its own server) and I'd prefer to keep this a free service so I don't even have to think about payment processing. I also don't want to have to deal with figuring out how to moderate uploads to prevent bad actor usage, which is incredibly laborious and annoying.</dd>
+				<dt>Saved presets not being persistent across multiple devices is kind of annoying; will there be user accounts?</dt>
+				<dd>Maybe? Watch this space.</dd>
+				<dt>Can we get WYSIWYG interface or something where I can drag widgets to place them?</dt>
+				<dd>I encourage you to donate to my ko-fi or something so that I can afford to have time to work on that big of an endeavor!</dd>
+				<dt>Will you add [feature]?</dt>
+				<dd>Submit an issue on the <a href="https://tildegit.org/smallbird/streamplace-overlay" target="_blank">git repo</a> or just @ me on bsky and I'll consider it!</dd>
+				<dt>Is this officially affiliated with Stream.Place?</dt>
+				<dd>No, this is just my little independent project because I see an API and I want to fuck around with it.</dd>
+				<dt>What is this app running on?</dt>
+				<dd>It was originally just running vanilla javascript with a client and server component but then I realized it was actually a really good use case for React. So now it's running on React + Next.js because people keep asking if I know Next.js so I figured I ought to learn it.</dd>
+				<dt>Can I hire you for something?</dt>
+				<dd>PLEASE. I am a freelancer and I <i>love</i> clients let's talk</dd>
+			</dl>
+			</details>
 			<div className={styles.presetControls}>
 				<div>
-					<label htmlFor="presets">Preset</label>
+					<label htmlFor="presets">Preset <button type="button">Import</button> <button type="button" onClick={exportData}>Export</button></label>
 					<select name="presets" id="presets" ref={presetRef} onChange={() => loadPreset(presetRef.current.value)}>
 						<option key="new" value="">New...</option>
 							{presets ? Object.keys(presets)?.map((p, i) => {
@@ -145,42 +221,44 @@ export default function SetupScreen () {
 				</div>
 			</div>
 			<form method="GET" className={styles.settingsForm}>
-				<FormRow id="username" label="Username" type="text" ref={usernameRef} value={currentPreset?.username} callback={() => updateCurrentPreset()} />
-				<FormRow id="image" label="Image Overlay" type="text" ref={imageRef} value={currentPreset?.image} callback={() => updateCurrentPreset()} />
-				<FormRow id="color" label="Default Text Color" type="color" ref={colorRef} value={currentPreset?.textColor} callback={() => updateCurrentPreset()} />
-				<FormRow id="imagew" label="Image Width" type="number" value={currentPreset?.imagew} ref={imagewRef} callback={() => updateCurrentPreset()} />
-				<FormRow id="imageh" label="Image Height" type="number" value={currentPreset?.imageh} ref={imagehRef} callback={() => updateCurrentPreset()} />
-				<FormRow id="msgcount" label="Message Count" type="number" value={currentPreset?.msgcount} ref={msgcountRef} callback={() => updateCurrentPreset()} />
-				<FormRow id="chatx" label="Chatbox Position X" type="number" value={currentPreset?.chatx} ref={chatxRef} callback={() => updateCurrentPreset()} />
-				<FormRow id="chaty" label="Chatbox Position Y" type="number" value={currentPreset?.chaty} ref={chatyRef} callback={() => updateCurrentPreset()} />
-				<FormRow id="chatw" label="Chatbox Width" type="number" value={currentPreset?.chatw} ref={chatwRef} callback={() => updateCurrentPreset()} />
-				<FormRow id="chath" label="Chatbox Height" type="number" value={currentPreset?.chath} ref={chathRef} callback={() => updateCurrentPreset()} />
+				<InputRow id="username" label="Username" type="text" ref={usernameRef} value={currentPreset?.username} callback={() => updateCurrentPreset()} />
+				<InputRow id="image" label="Image Overlay" type="text" ref={imageRef} value={currentPreset?.image} callback={() => updateCurrentPreset()} />
+				<InputRow id="color" label="Default Text Color" type="color" ref={colorRef} value={currentPreset?.textColor} callback={() => updateCurrentPreset()} />
+				<InputRow id="imagew" label="Image Width" type="number" value={currentPreset?.imagew} ref={imagewRef} callback={() => updateCurrentPreset()} />
+				<InputRow id="imageh" label="Image Height" type="number" value={currentPreset?.imageh} ref={imagehRef} callback={() => updateCurrentPreset()} />
+				<InputRow id="msgcount" label="Message Count" type="number" value={currentPreset?.msgcount} ref={msgcountRef} callback={() => updateCurrentPreset()} />
+				<InputRow id="chatx" label="Chatbox Position X" type="number" value={currentPreset?.chatx} ref={chatxRef} callback={() => updateCurrentPreset()} />
+				<InputRow id="chaty" label="Chatbox Position Y" type="number" value={currentPreset?.chaty} ref={chatyRef} callback={() => updateCurrentPreset()} />
+				<InputRow id="chatw" label="Chatbox Width" type="number" value={currentPreset?.chatw} ref={chatwRef} callback={() => updateCurrentPreset()} />
+				<InputRow id="chath" label="Chatbox Height" type="number" value={currentPreset?.chath} ref={chathRef} callback={() => updateCurrentPreset()} />
 				<FormSection title="Widgets">
-					<FormToggleSection id="showFollower" label="Show Latest Follower?" groupName="followerControls" isOn={currentPreset?.showFollower} ref={showFollowerRef}>
-						<FormRow id="followerdisplay" label="Follower Display Type" type="select" options={followerDisplayOptions} value={currentPreset?.followerdisplay} ref={followerdisplayRef} />
-						<FormRow id="followersize" label="Follower Font Size" type="text" value={currentPreset?.followersize} ref={followersizeRef} />
-						<FormRow id="followerx" label="Follower Position X" type="number" value={currentPreset?.followerx} ref={followerxRef} />
-						<FormRow id="followery" label="Follower Position Y" type="number" value={currentPreset?.followery} ref={followeryRef} />
-						<FormRow id="followerw" label="Follower Width" type="number" value={currentPreset?.followerw} ref={followerwRef} />
-						<FormRow id="followerh" label="Follower Height" type="number" value={currentPreset?.followerh} ref={followerhRef} />
+					<FormToggleSection id="showFollower" label="Show Latest Follower?" groupName="followerControls" isOn={currentPreset?.showFollower} ref={showFollowerRef} callback={() => updateCurrentPreset()}>
+						<SelectRow id="followerdisplay" label="Follower Display Type" options={followerDisplayOptions} value={currentPreset?.followerdisplay} ref={followerdisplayRef} callback={() => updateCurrentPreset()} />
+						<InputRow id="followersize" label="Follower Font Size" type="text" value={currentPreset?.followersize} ref={followersizeRef} callback={() => updateCurrentPreset()} />
+						<InputRow id="followercolor" label="Follower Font Color" type="color" value={currentPreset?.followercolor} ref={followercolorRef} callback={() => updateCurrentPreset()} />
+						<InputRow id="followerx" label="Follower Position X" type="number" value={currentPreset?.followerx} ref={followerxRef} callback={() => updateCurrentPreset()} />
+						<InputRow id="followery" label="Follower Position Y" type="number" value={currentPreset?.followery} ref={followeryRef} callback={() => updateCurrentPreset()} />
+						<InputRow id="followerw" label="Follower Width" type="number" value={currentPreset?.followerw} ref={followerwRef} callback={() => updateCurrentPreset()} />
+						<InputRow id="followerh" label="Follower Height" type="number" value={currentPreset?.followerh} ref={followerhRef} callback={() => updateCurrentPreset()} />
 					</FormToggleSection>
-					<FormToggleSection id="showFeed" label="Show Feed?" groupName="feedControls" isOn={currentPreset?.showFeed} ref={showFeedRef}>
-						<FormRow id="feeduri" label="Feed URI" type="text" help={<>This is going to look something like <code>at://did:plc:2sqok7oqqrhtmmmb5sulkrw2/app.bsky.feed.generator/aaaffrjyldgue</code>.</>} value={currentPreset?.feeduri} ref={feeduriRef} />
-						<FormRow id="feedlimit" label="Feed Message Limit" type="number" value={currentPreset?.feedlimit} ref={feedlimitRef} />
-						<FormRow id="feedx" label="Feed Position X" type="number" value={currentPreset?.feedx} ref={feedxRef} />
-						<FormRow id="feedy" label="Feed Position Y" type="number" value={currentPreset?.feedy} ref={feedyRef} />
-						<FormRow id="feedw" label="Feed Width" type="number" value={currentPreset?.feedw} ref={feedwRef} />
-						<FormRow id="feedh" label="Feed Height" type="number" value={currentPreset?.feedh} ref={feedhRef} />
+					<FormToggleSection id="showFeed" label="Show Feed?" groupName="feedControls" isOn={currentPreset?.showFeed} ref={showFeedRef} callback={() => updateCurrentPreset()}>
+						<InputRow id="feeduri" label="Feed URI" type="text" help={<>This is going to look something like <code>at://did:plc:2sqok7oqqrhtmmmb5sulkrw2/app.bsky.feed.generator/aaaffrjyldgue</code>.</>} value={currentPreset?.feeduri} ref={feeduriRef} callback={() => updateCurrentPreset()} />
+						<InputRow id="feedlimit" label="Feed Message Limit" type="number" value={currentPreset?.feedlimit} ref={feedlimitRef} callback={() => updateCurrentPreset()} />
+						<InputRow id="feedx" label="Feed Position X" type="number" value={currentPreset?.feedx} ref={feedxRef} callback={() => updateCurrentPreset()} />
+						<InputRow id="feedy" label="Feed Position Y" type="number" value={currentPreset?.feedy} ref={feedyRef} callback={() => updateCurrentPreset()} />
+						<InputRow id="feedw" label="Feed Width" type="number" value={currentPreset?.feedw} ref={feedwRef} callback={() => updateCurrentPreset()} />
+						<InputRow id="feedh" label="Feed Height" type="number" value={currentPreset?.feedh} ref={feedhRef} callback={() => updateCurrentPreset()} />
 					</FormToggleSection>
-					<FormToggleSection id="showFollowerAlerts" label="Show Follower Alerts?" groupName="followerAlerts" isOn={currentPreset?.showFollowerAlerts} ref={showFollowerAlertsRef}>
-						<FormRow id="alerttext" label="Alert Text" type="textarea" ref={alerttextRef} />
+					<FormToggleSection id="showFollowerAlerts" label="Show Follower Alerts?" groupName="followerAlerts" isOn={currentPreset?.showFollowerAlerts} ref={showFollowerAlertsRef} callback={() => updateCurrentPreset()}>
+						<TextareaRow id="alerttext" label="Alert Text" ref={alerttextRef} callback={() => updateCurrentPreset()} help="{name} will be replaced with the follower's name." />
+						<ListItemFormElements id="alertImages" label="Alert Images" ref={alertimagesRef} callback={() => updateCurrentPreset()} />
 					</FormToggleSection>
-					<RepeatableWidgets id="widgets" label="Widgets"></RepeatableWidgets>
+					<RepeatableWidgets id="widgets" label="Custom Widgets (Experimental! Still Testing!)" data={currentPreset?.["widgets"]} callback={getWidgetInfo} ref={widgetsRef}></RepeatableWidgets>
 				</FormSection>
 				<FormSection title="Custom Formatting">
-					<FormRow id="customtemplate" label="Custom Message Template" help="Use {author} to print the author handle and {message} to print the message. The whole thing will be wrapped in a &lt;li&gt; element that has &quot;even&quot; or &quot;odd&quot; applied to it, alternating." type="textarea" value={currentPreset?.customtemplate} ref={msgTemplateRef} />
-					<FormRow id="customhtml" label="Custom HTML" help="Add any custom HTML you want here—e.g. if you want to display a hashtag, include a widget from somewhere, etc. Can include Javascript if you're spicy." type="textarea" value={currentPreset?.customhtml} ref={htmlRef} />
-					<FormRow id="css" label="Custom CSS" help="Some minimal styles will be applied if nothing is entered." type="textarea" value={currentPreset?.css} ref={cssRef} />
+					<TextareaRow id="customtemplate" label="Custom Message Template" help="Use {author} to print the author handle and {message} to print the message. The whole thing will be wrapped in a &lt;li&gt; element that has &quot;even&quot; or &quot;odd&quot; applied to it, alternating." value={currentPreset?.customtemplate} ref={msgTemplateRef} callback={() => updateCurrentPreset()} />
+					<TextareaRow id="customhtml" label="Custom HTML" help="Add any custom HTML you want here—e.g. if you want to display a hashtag, include a widget from somewhere, etc. Can include Javascript if you're spicy." value={currentPreset?.customhtml} ref={htmlRef} callback={() => updateCurrentPreset()} />
+					<TextareaRow id="css" label="Custom CSS" help="Some minimal styles will be applied if nothing is entered." value={currentPreset?.css} ref={cssRef} callback={() => updateCurrentPreset()} />
 				</FormSection>
 				<div className="form-row">
 					<button type="button" id="preset-update" onClick={() => savePreset()}>{presetRef.value !== "" ? "Update Preset" : "Add Preset"}</button> <button type="submit">Create Overlay</button>

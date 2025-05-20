@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Head from 'next/head';
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,6 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+			<Head>
+				<title>Placemat | Your Stream.Place Overlay</title>
+			</Head>
       <body>
         {children}
       </body>

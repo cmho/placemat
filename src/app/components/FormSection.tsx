@@ -8,7 +8,7 @@ export default function FormSection ({children, ...props}: {children: React.Reac
 	const { title } = props;
 	return(
 		<details>
-			<summary><h3>{title}</h3></summary>
+			<summary><h2>{title}</h2></summary>
 			{children}
 		</details>
 	)

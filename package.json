@@ -2,12 +2,12 @@
   "name": "streamplace-overlay",
   "module": "server.js",
   "type": "module",
-	"scripts": {
+  "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
-	},
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "typescript": "^5",
@@ -20,9 +20,9 @@
   },
   "dependencies": {
     "fastify": "^5.3.0",
+    "next": "15.3.2",
     "react": "^19.1.0",
-    "react-use-websocket": "^4.13.0",
     "react-dom": "^19.0.0",
-    "next": "15.3.2"
+    "uuid": "^11.1.0"
   }
 }

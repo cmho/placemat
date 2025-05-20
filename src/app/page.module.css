@@ -4,6 +4,34 @@
 	margin: 25px auto;
 }
 
+.exportLink {
+	display: none;
+}
+
+.importInput {
+	display: none;
+}
+
+.faq {
+	margin: .5em 0;
+}
+
+.faq:before {
+	display: none;
+}
+
+.faq summary {
+	background-color: black;
+	padding: 3px 5px;
+	color: white;
+	margin-bottom: 3px;
+	border: none;
+}
+
+.faq summary h2 {
+	font-size: 1em;
+}
+
 .presetControls {
 	display: flex;
 	gap: 10px;
@@ -22,12 +50,57 @@
 	margin: 0;
 }
 
-.followerControls,
-.feedControls,
-.widgets,
-.widget,
+.followerControls {
+	margin-top: 10px;
+	display: grid;
+	gap: 10px;
+}
+.feedControls {
+	margin-top: 10px;
+	display: grid;
+	gap: 10px;
+}
+
+.widgets {
+	margin-top: 10px;
+	display: grid;
+	gap: 30px;
+}
+
+.widgets h4 {
+	display: flex;
+	justify-content: space-between;
+}
+
+.widget {
+	margin-top: 10px;
+	display: grid;
+	gap: 10px;
+}
+
 .followerAlerts {
 	margin-top: 10px;
 	display: grid;
 	gap: 10px;
+}
+
+.widgetRow {
+	display: grid;
+	gap: 10px;
+}
+
+.listItemsList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 5px;
+}
+
+.buttonRow {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 1em;
+	margin-bottom: .5em;
 }
