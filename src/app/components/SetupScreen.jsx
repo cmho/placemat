@@ -253,7 +253,6 @@ export default function SetupScreen () {
 						<TextareaRow id="alerttext" label="Alert Text" ref={alerttextRef} callback={() => updateCurrentPreset()} help="{name} will be replaced with the follower's name." />
 						<ListItemFormElements id="alertImages" label="Alert Images" ref={alertimagesRef} callback={() => updateCurrentPreset()} />
 					</FormToggleSection>
-					<RepeatableWidgets id="widgets" label="Custom Widgets (Experimental! Still Testing!)" data={currentPreset?.["widgets"]} callback={getWidgetInfo} ref={widgetsRef}></RepeatableWidgets>
 				</FormSection>
 				<FormSection title="Custom Formatting">
 					<TextareaRow id="customtemplate" label="Custom Message Template" help="Use {author} to print the author handle and {message} to print the message. The whole thing will be wrapped in a &lt;li&gt; element that has &quot;even&quot; or &quot;odd&quot; applied to it, alternating." value={currentPreset?.customtemplate} ref={msgTemplateRef} callback={() => updateCurrentPreset()} />
