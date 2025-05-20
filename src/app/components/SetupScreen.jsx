@@ -146,6 +146,7 @@ export default function SetupScreen () {
 	}
 	
 	const importInitiate = () => {
+		console.log(importRef);
 		importRef.current.click();
 	}
 	
