@@ -54,13 +54,13 @@ export default forwardRef(function ListItemFormElements(props, ref) {
 						{uuid ? ref.current[uuid].items.map((item, i) => {
 							return (
 								<li key={i}>
-									<input type="text" defaultValue={item} name={'widgets['+uuid+'][items][]'} onChange={(e) => updateItem(i, e.target.value)} /> <button type="button" onClick={() => removeItem(i)}>Remove</button>
+									<input type="text" defaultValue={item} name={'widgets_'+uuid+'_items'} onChange={(e) => updateItem(i, e.target.value)} /> <button type="button" onClick={() => removeItem(i)}>Remove</button>
 								</li>
 							)
 						}) : ref.current.map((item, i) => {
 							return (
 								<li key={i}>
-									<input type="text" defaultValue={item} name={'widgets['+uuid+'][items][]'} onChange={(e) => updateItem(i, e.target.value)} /> <button type="button" onClick={() => removeItem(i)}>Remove</button>
+									<input type="text" defaultValue={item} name={id+'_items'} onChange={(e) => updateItem(i, e.target.value)} /> <button type="button" onClick={() => removeItem(i)}>Remove</button>
 								</li>
 							)
 						})}

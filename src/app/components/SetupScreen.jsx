@@ -55,6 +55,11 @@ export default function SetupScreen () {
 	const feedhRef = useRef({value: '600px'});
 	const showFollowerAlertsRef = useRef({checked: false});
 	const alerttextRef = useRef({value: ''});
+	const alertxRef = useRef({value: 0});
+	const alertyRef = useRef({value: 0});
+	const alertwRef = useRef({value: 100});
+	const alerthRef = useRef({value: 100});
+	const alertcolorRef = useRef({value: '#000000'});
 	const alertimagesRef = useRef([]);
 	const widgetsRef = useRef({});
 	const htmlRef = useRef({value: ''});
@@ -253,6 +258,11 @@ export default function SetupScreen () {
 						<InputRow id="feedh" label="Feed Height" type="number" value={currentPreset?.feedh} ref={feedhRef} callback={() => updateCurrentPreset()} />
 					</FormToggleSection>
 					<FormToggleSection id="showFollowerAlerts" label="Show Follower Alerts?" groupName="followerAlerts" isOn={currentPreset?.showFollowerAlerts} ref={showFollowerAlertsRef} callback={() => updateCurrentPreset()}>
+						<InputRow id="alertx" label="Alert Position X" type="number" value={currentPreset?.alertx} ref={alertxRef} callback={() => updateCurrentPreset()} />
+						<InputRow id="alerty" label="Alert Position Y" type="number" value={currentPreset?.alerty} ref={alertyRef} callback={() => updateCurrentPreset()} />
+						<InputRow id="alertw" label="Alert Width" type="number" value={currentPreset?.alertw} ref={alertwRef} callback={() => updateCurrentPreset()} />
+						<InputRow id="alerth" label="Alert Height" type="number" value={currentPreset?.alerth} ref={alertxRef} callback={() => updateCurrentPreset()} />
+						<InputRow id="alertcolor" label="Alert Text Color" type="number" value={currentPreset?.alertcolor} ref={alertcolorRef} callback={() => updateCurrentPreset()} />
 						<TextareaRow id="alerttext" label="Alert Text" ref={alerttextRef} callback={() => updateCurrentPreset()} help="{name} will be replaced with the follower's name." />
 						<ListItemFormElements id="alertImages" label="Alert Images" ref={alertimagesRef} callback={() => updateCurrentPreset()} />
 					</FormToggleSection>

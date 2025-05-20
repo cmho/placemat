@@ -32,6 +32,9 @@ export default function Overlay () {
 		const feedInnerRef = useRef(null);
 		const messagesOuterRef = useRef(null);
 		const messagesInnerRef = useRef(null);
+		const followerAlertsRef = useRef(null);
+		const alertImageRef = useRef(null);
+		const alertTextRef = useRef(null);
 
 		// regexes for parsing incoming messages
 		const isTimerStart = new RegExp("^!start ([a-zA-Z0-9_\-]+)$");
@@ -44,6 +47,11 @@ export default function Overlay () {
 		const isShowWidget = new RegExp("^!show ([a-zA-Z0-9_\-]+)$");
 	
 		let cursor = 0;
+		
+		const getRandomAlertImage = () => {
+			const alertImages = params.getAll("alertImages_items");
+			return alertImages[Math.floor(Math.random() * alertImages.length)];
+		}
 	
 		useEffect(() => {
 			setInterval(async () => {
@@ -102,6 +110,17 @@ export default function Overlay () {
 				}, 5000);
 			}
 		}, []);
+		
+		useEffect(() => {
+			if (params.get("showFollowerAlerts")) {
+				alertImageRef.current.src = getRandomAlertImage();
+				alertTextRef.current.textContent = params.get("alerttext").replace("{name}", latestFollower);
+				followerAlertsRef.current.style.display = "block";
+				setTimeout(() => {
+					followerAlertsRef.current.style.display = "none";
+				}, 5000);
+			}
+		}, [latestFollower]);
 	
 		return(
 			<main className={styles.overlayPage}>
@@ -132,6 +151,12 @@ export default function Overlay () {
 								)
 							})}
 						</ul>
+					</div>
+				: ''}
+				{params.get("showFollowerAlerts") ?
+					<div id="followerAlerts" className={styles.followerAlerts} style={{left: params.get("alertx")+'px', top: params.get("alerty")+"px", color: params.get("alertcolor")}} ref={followerAlertsRef}>
+						<img className={styles.followerAlertImage} style={{maxWidth: params.get("alertw")+"px", maxHeight: params.get("alerth")+"px"}} ref={alertImageRef} />
+						<div className={styles.followerAlertText} ref={alertTextRef}></div>
 					</div>
 				: ''}
 				{params.getAll("widget_uuids") ? params.getAll("widget_uuids").map((uuid, i) => {
