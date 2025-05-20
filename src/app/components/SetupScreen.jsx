@@ -146,6 +146,7 @@ export default function SetupScreen () {
 	}
 	
 	const importInitiate = () => {
+		console.log('initiating import');
 		console.log(importRef);
 		importRef.current.click();
 	}
@@ -198,6 +199,8 @@ export default function SetupScreen () {
 				<dd>No, this is just my little independent project because I see an API and I want to fuck around with it.</dd>
 				<dt>What is this app running on?</dt>
 				<dd>It was originally just running vanilla javascript with a client and server component but then I realized it was actually a really good use case for React. So now it's running on React + Next.js because people keep asking if I know Next.js so I figured I ought to learn it.</dd>
+				<dt>I want to see the cutting-edge features that might be janky and broken.</dt>
+				<dd>Sure, <a href="https://dev.placemat.veryroundbird.house" target="_blank">if you really want to</a>.</dd>
 				<dt>Can I hire you for something?</dt>
 				<dd>PLEASE. I am a freelancer and I <i>love</i> clients let's talk</dd>
 			</dl>
@@ -205,7 +208,7 @@ export default function SetupScreen () {
 			<div className={styles.presetControls}>
 				<div>
 					<label htmlFor="presets">Preset <button type="button" onClick={importInitiate}>Import</button> <button type="button" onClick={exportData}>Export</button></label>
-					<select name="presets" id="presets" ref={presetRef} onChange={() => loadPreset(presetRef.current.value)}>
+					<select name="presets" class={styles.presetSelect} id="presets" ref={presetRef} onChange={() => loadPreset(presetRef.current.value)}>
 						<option key="new" value="">New...</option>
 							{presets ? Object.keys(presets)?.map((p, i) => {
 								return(

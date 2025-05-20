@@ -41,6 +41,10 @@
 	margin: 10px 0;
 }
 
+.presetSelect {
+	width: 100%;
+}
+
 .settingsForm {
 	display: grid;
 	gap: 10px;
@@ -58,6 +62,7 @@
 	display: grid;
 	gap: 10px;
 }
+
 .feedControls {
 	margin-top: 10px;
 	display: grid;
