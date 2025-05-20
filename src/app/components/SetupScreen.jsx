@@ -152,21 +152,25 @@ export default function SetupScreen () {
 	}
 	
 	const processImport = () => {
-		console.log(importRef.current.files);
-		const json = JSON.parse(importRef.current.files[0].getAsDataURL());
-		const presetData = {...presets};
-		Object.keys(json).forEach((preset) => {
-			let keyname = preset;
-			while (keyname in presetData) {
-				if (confirm('A preset named '+preset+' already exists. Do you want to overwrite?')) {
-					break;
-				} else {
-					keyname = prompt('Enter a new name for this preset:');
+		const fileReader = new FileReader();
+		fileReader.readAsText(importRef.current.files[0]);
+		fileReader.onload = () => {
+			const json = JSON.parse(fileReader.result);
+			const presetData = {...presets};
+			Object.keys(json).forEach((preset) => {
+				let keyname = preset;
+				while (keyname in presetData) {
+					if (confirm('A preset named '+preset+' already exists. Do you want to overwrite?')) {
+						break;
+					} else {
+						keyname = prompt('Enter a new name for this preset:');
+					}
 				}
-			}
-			presetData[keyname] = json[preset];
-		});
-		alert("Import complete!");
+				presetData[keyname] = json[preset];
+			});
+			setPresets(presetData);
+			alert("Import complete!");
+		}
 	}
 	
 	useEffect(() => {
