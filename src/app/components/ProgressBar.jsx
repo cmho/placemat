@@ -3,24 +3,7 @@
 import styles from '../overlay.module.css';
 import { useState, useEffect } from 'react';
 
-interface Props {
-	id: string,
-	heading: string,
-	foreground: string,
-	background: string,
-	current: number,
-	maximum: number,
-	prependUnits: string,
-	appendUnits: string,
-	posx: number,
-	posy: number,
-	width: number,
-	height: number,
-	uuid: string,
-	style: string
-}
-
-export default function ProgressBar (props: Props) {
+export default function ProgressBar (props) {
 	const { id, heading, foreground, background, current, maximum, prependUnits, appendUnits, posx, posy, width, height, uuid, style } = props;
 	const [currentVal, setCurrentVal] = useState(current);
 	

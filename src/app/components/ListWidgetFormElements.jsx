@@ -1,27 +1,12 @@
 'use client';
 
-import InputRow from './InputRow.tsx';
-import ListItemFormElements from './ListItemFormElements.tsx';
+import InputRow from './InputRow';
+import ListItemFormElements from './ListItemFormElements';
 import styles from '../page.module.css';
 import { useEffect, useRef, forwardRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-interface Props {
-	id: string,
-	uuid: string,
-	heading: string,
-	color: string,
-	children: React.ReactNode,
-	width: number,
-	height: number,
-	posx: number,
-	posy: number,
-	index: number,
-	items: string[], 
-	callback?: any
-}
-
-export default forwardRef<object, Props>(function ListWidgetFormElements (props, ref) {
+export default forwardRef(function ListWidgetFormElements (props, ref) {
 	const { id, uuid, heading, children, color, width, height, posx, posy, items, index, callback } = props;
 	const idRef = useRef(id ?? "widget-"+(index));
 	const headingRef = useRef(heading ?? "");

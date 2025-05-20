@@ -1,32 +1,11 @@
 'use client';
 
-import InputRow from './InputRow.tsx';
-import SelectRow from './SelectRow.tsx';
+import InputRow from './InputRow';
+import SelectRow from './SelectRow';
 import styles from '../page.module.css';
 import { useRef, forwardRef } from 'react';
 
-interface Props {
-	id: string,
-	children?: React.ReactNode,
-	heading: string,
-	type: string,
-	foreground: string,
-	background: string,
-	current: number,
-	maximum: number,
-	prependUnits: string,
-	appendUnits: string,
-	posx: number,
-	posy: number,
-	width: number,
-	height: number,
-	uuid: string,
-	index: number,
-	style: string,
-	callback: any
-}
-
-export default forwardRef<object[], Props>(function ProgressWidgetFormElements (props, ref) {
+export default forwardRef(function ProgressWidgetFormElements (props, ref) {
 	const { id, type, heading, foreground, background, current, maximum, prependUnits, appendUnits, posx, posy, width, height, style, uuid, index, callback } = props;
 	const idRef = useRef(id);
 	const headingRef = useRef(heading)

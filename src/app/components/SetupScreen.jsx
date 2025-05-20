@@ -1,15 +1,15 @@
 'use client';
 
 import Image from 'next/image';
-import InputRow from './InputRow.tsx';
-import SelectRow from './SelectRow.tsx';
-import CheckboxRow from './CheckboxRow.tsx';
-import TextareaRow from './TextareaRow.tsx';
-import PresetControls from './PresetControls.tsx';
-import FormToggleSection from './FormToggleSection.tsx';
-import FormSection from './FormSection.tsx';
-import RepeatableWidgets from './RepeatableWidgets.tsx';
-import ListItemFormElements from './ListItemFormElements.tsx';
+import InputRow from './InputRow';
+import SelectRow from './SelectRow';
+import CheckboxRow from './CheckboxRow';
+import TextareaRow from './TextareaRow';
+import PresetControls from './PresetControls';
+import FormToggleSection from './FormToggleSection';
+import FormSection from './FormSection';
+import RepeatableWidgets from './RepeatableWidgets';
+import ListItemFormElements from './ListItemFormElements';
 import styles from "../page.module.css";
 import { useState, useEffect, useRef } from 'react';
 
@@ -26,40 +26,40 @@ export default function SetupScreen () {
 	
 	const followerDisplayOptions = [{value: "handle", label: "Handle (e.g. handle.bsky.social)"}, {value: "displayname", label: "Display Name (e.g. Jane Smith)"}];
 	
-	const presetRef = useRef<HTMLSelectElement>(null);
-	const presetNameRef = useRef<HTMLInputElement>(null);
-	const usernameRef = useRef<HTMLInputElement>(null);
-	const imageRef = useRef<HTMLInputElement>(null);
-	const colorRef = useRef<HTMLInputElement>(null);
-	const imagewRef = useRef<HTMLInputElement>({value: 1920});
-	const imagehRef = useRef<HTMLInputElement>({value: 1080});
-	const msgcountRef = useRef<HTMLInputElement>({value: 5});
-	const chatxRef = useRef<HTMLInputElement>({value: 0});
-	const chatyRef = useRef<HTMLInputElement>({value: 0});
-	const chatwRef = useRef<HTMLInputElement>({value: '400px'});
-	const chathRef = useRef<HTMLInputElement>({value: '600px'});
-	const showFollowerRef = useRef<HTMLInputElement>({checked: false});
-	const followerdisplayRef = useRef<HTMLSelectElement>({value: 'handle'});
-	const followersizeRef = useRef<HTMLInputElement>({value: '24px'});
-	const followercolorRef = useRef<HTMLInputElement>({value: '#000000'});
-	const followerxRef = useRef<HTMLInputElement>({value: 0});
-	const followeryRef = useRef<HTMLInputElement>({value: 0});
-	const followerwRef = useRef<HTMLInputElement>({value: '200px'});
-	const followerhRef = useRef<HTMLInputElement>({value: '24px'});
-	const showFeedRef = useRef<HTMLInputElement>({checked: false});
-	const feeduriRef = useRef<HTMLInputElement>(null);
-	const feedlimitRef = useRef<HTMLInputElement>({value: 10});
-	const feedxRef = useRef<HTMLInputElement>({value: 0});
-	const feedyRef = useRef<HTMLInputElement>({value: 0});
-	const feedwRef = useRef<HTMLInputElement>({value: '400px'});
-	const feedhRef = useRef<HTMLInputElement>({value: '600px'});
-	const showFollowerAlertsRef = useRef<HTMLInputElement>({checked: false});
-	const alerttextRef = useRef<HTMLTextareaElement>({value: ''});
-	const alertimagesRef = useRef<string[]>([]);
-	const widgetsRef = useRef<object>({});
-	const htmlRef = useRef<HTMLTextareaElement>({value: ''});
-	const msgTemplateRef = useRef<HTMLTextareaElement>({value: ''});
-	const cssRef = useRef<HTMLTextareaElement>({value: ''});
+	const presetRef = useRef(null);
+	const presetNameRef = useRef(null);
+	const usernameRef = useRef(null);
+	const imageRef = useRef(null);
+	const colorRef = useRef(null);
+	const imagewRef = useRef({value: 1920});
+	const imagehRef = useRef({value: 1080});
+	const msgcountRef = useRef({value: 5});
+	const chatxRef = useRef({value: 0});
+	const chatyRef = useRef({value: 0});
+	const chatwRef = useRef({value: '400px'});
+	const chathRef = useRef({value: '600px'});
+	const showFollowerRef = useRef({checked: false});
+	const followerdisplayRef = useRef({value: 'handle'});
+	const followersizeRef = useRef({value: '24px'});
+	const followercolorRef = useRef({value: '#000000'});
+	const followerxRef = useRef({value: 0});
+	const followeryRef = useRef({value: 0});
+	const followerwRef = useRef({value: '200px'});
+	const followerhRef = useRef({value: '24px'});
+	const showFeedRef = useRef({checked: false});
+	const feeduriRef = useRef(null);
+	const feedlimitRef = useRef({value: 10});
+	const feedxRef = useRef({value: 0});
+	const feedyRef = useRef({value: 0});
+	const feedwRef = useRef({value: '400px'});
+	const feedhRef = useRef({value: '600px'});
+	const showFollowerAlertsRef = useRef({checked: false});
+	const alerttextRef = useRef({value: ''});
+	const alertimagesRef = useRef([]);
+	const widgetsRef = useRef({});
+	const htmlRef = useRef({value: ''});
+	const msgTemplateRef = useRef({value: ''});
+	const cssRef = useRef({value: ''});
 	const exportRef = useRef(null);
 	const importRef = useRef(null);
 	
@@ -130,7 +130,7 @@ export default function SetupScreen () {
 		});
 	}
 	
-	const getWidgetInfo = (groupName: string, widgets: object) => {
+	const getWidgetInfo = (groupName, widgets) => {
 		const newCurrent = {...currentPreset, [groupName]: widgets};
 		setCurrentPreset(newCurrent);
 	}

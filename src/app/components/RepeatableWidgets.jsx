@@ -1,36 +1,13 @@
 'use client';
 
-import ProgressWidgetFormElements from './ProgressWidgetFormElements.tsx';
-import ListWidgetFormElements from './ListWidgetFormElements.tsx';
-import TimerWidgetFormElements from './TimerWidgetFormElements.tsx';
+import ProgressWidgetFormElements from './ProgressWidgetFormElements';
+import ListWidgetFormElements from './ListWidgetFormElements';
+import TimerWidgetFormElements from './TimerWidgetFormElements';
 import styles from '../page.module.css';
 import { useState, useEffect, useRef, forwardRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-type Widget = {
-	type: string,
-	posx: number,
-	posy: number,
-	width: number,
-	height: number,
-	items?: any[],
-	current?: number,
-	max?: number,
-	foreground?: string,
-	background?: string,
-	css?: string
-}
-
-interface Props {
-	id: string,
-	children: React.ReactNode,
-	label: string,
-	data?: object[],
-	isOn: boolean,
-	callback?: any
-}
-
-export default forwardRef<any[], Props>(function RepeatableWidgets(props, ref) {
+export default forwardRef(function RepeatableWidgets(props, ref) {
 	const { id, children, label, data, isOn, callback } = props;
 	const typeRef = useRef('progress');
 	
@@ -48,7 +25,7 @@ export default forwardRef<any[], Props>(function RepeatableWidgets(props, ref) {
 		callback(id, ref.current);
 	}
 	
-	const removeWidget = (uuid: string) => {
+	const removeWidget = (uuid) => {
 		delete ref.current[uuid];
 		callback(id, ref.current);
 	}

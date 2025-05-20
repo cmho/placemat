@@ -3,23 +3,7 @@
 import { forwardRef } from 'react';
 import styles from '../page.module.css';
 
-type Opt = {
-	label: string,
-	value: any
-};
-
-interface Props {
-  id: string,
-	children: React.ReactNode,
-	label: string,
-	value: string,
-	options: Opt[],
-	help?: string,
-	ref: any,
-	callback: any
-};
-
-export default forwardRef<HTMLSelectElement, Props>(function FormRow (props, ref) {
+export default forwardRef(function FormRow (props, ref) {
 	const { id, children, label, value, options, help, callback } = props;
 	return (
 		<div className="form-row">

@@ -1,25 +1,10 @@
 'use client';
 
-import InputRow from './InputRow.tsx';
+import InputRow from './InputRow';
 import styles from '../page.module.css';
 import { useRef, forwardRef } from 'react';
 
-interface Props {
-	id: string,
-	heading: string,
-	children: React.ReactNode,
-	posx: number,
-	posy: number,
-	width: number,
-	height: number,
-	defaultTime: string,
-	foreground: string,
-	background: string,
-	uuid: string,
-	callback: any
-}
-
-export default forwardRef<object[], Props>(function TimerWidgetFormElements (props, ref) {
+export default forwardRef(function TimerWidgetFormElements (props, ref) {
 	const { id, heading, children, posx, posy, width, height, defaultTime, foreground, background, uuid, callback } = props;
 	const idRef = useRef(id ?? 'New Widget '+index);
 	const headingRef = useRef(heading ?? '');

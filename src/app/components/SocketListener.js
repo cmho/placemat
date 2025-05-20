@@ -2,7 +2,7 @@
 
 const messages = {};
 
-export async function socketListener (username: string) {
+export async function socketListener (username) {
 	let cursor = 0;
 	
 	const ws = new WebSocket("wss://stream.place/api/websocket/"+username);
@@ -39,14 +39,14 @@ export async function socketListener (username: string) {
 	});
 }
 
-export async function getMessages(username: string, count: number) {
+export async function getMessages(username, count) {
 	if (!(username in messages)) {
 		messages[username] = [];
 	}
 	return messages[username].slice(-1*count);
 }
 
-export async function getFeedMessages(feedUri: string) {
+export async function getFeedMessages(feedUri) {
 	const feedMessages = await fetch("https://public.api.bsky.app/xrpc/app.bsky.feed.getFeed?feed="+feed);
 	const feedRes = await feedMessages.json();
 	const feedData = feedRes.feed.filter((msg) => {
@@ -64,7 +64,7 @@ export async function getFeedMessages(feedUri: string) {
 	}
 }
 
-export async function getLatestFollower(username: string) {
+export async function getLatestFollower(username) {
 	const followerReq = await fetch('https://public.api.bsky.app/xrpc/app.bsky.graph.getFollowers?actor='+username);
 	const followerData = await followerReq.json();
 	console.log(followerData);

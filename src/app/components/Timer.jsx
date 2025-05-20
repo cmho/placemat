@@ -3,19 +3,7 @@
 import styles from '../overlay.module.css';
 import { useState, useEffect, useRef } from 'react';
 
-interface Props {
-	id: string,
-	heading: string,
-	foreground: string,
-	background: string,
-	defaultTime: string,
-	posx: number,
-	posy: number,
-	width: number,
-	height: number
-}
-
-export default function Timer (props: Props) {
+export default function Timer (props) {
 	const { id, heading, foreground, background, defaultTime, posx, posy, width, height } = props;
 	const [time, setTime] = useState(0);
 	console.log(props);

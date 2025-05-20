@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 
-export default const PresetControls = () => {
+export default function PresetControls() {
 	return (
 		<div id="presetControls">
 			<div>
