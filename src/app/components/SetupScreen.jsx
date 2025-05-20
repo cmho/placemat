@@ -152,6 +152,7 @@ export default function SetupScreen () {
 	}
 	
 	const processImport = () => {
+		console.log(importRef.current.files);
 		const json = JSON.parse(importRef.current.files[0].getAsDataURL());
 		const presetData = {...presets};
 		Object.keys(json).forEach((preset) => {
