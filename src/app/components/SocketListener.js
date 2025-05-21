@@ -27,9 +27,9 @@ export async function socketListener (username) {
 
 	ws.addEventListener('message', async (e) => {
 		const data = JSON.parse(e.data);
-		console.log(data);
 	  if (data['$type'] === "place.stream.chat.defs#messageView"
 		&& Date.parse(data["record"]["createdAt"]) > cursor) {
+			console.log(data);
 			if (!(username in messages)) {
 				messages[username] = [];
 			}
@@ -67,7 +67,6 @@ export async function getFeedMessages(feedUri) {
 export async function getLatestFollower(username) {
 	const followerReq = await fetch('https://public.api.bsky.app/xrpc/app.bsky.graph.getFollowers?actor='+username);
 	const followerData = await followerReq.json();
-	console.log(followerData);
 	if (followerData?.followers?.length > 0) return followerData?.followers[0];
 	return "";
 }
