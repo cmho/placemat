@@ -44,7 +44,17 @@ export default function Overlay () {
 	    {
 	      share: false,
 	      shouldReconnect: () => true,
+				onOpen: (event) => {
+					console.log('Connected successfully.');
+				},
+				onClose: (event) => {
+					console.log('Connection closed.');
+				},
 				onMessage: (event) => {
+					console.log(event);
+				},
+				onError: (event) => {
+					console.log('Error:');
 					console.log(event);
 				}
 	    },
