@@ -1,12 +1,8 @@
 'use server';
 
-const messages = {};
-
 export async function socketListener (username) {
-	let cursor = 0;
-	
+	const messages = [];
 	const ws = new WebSocket("wss://stream.place/api/websocket/"+username);
-	console.log('socket listening');
 	ws.addEventListener('open', (e) => {
 	  console.log(e);
 	});
@@ -16,7 +12,6 @@ export async function socketListener (username) {
 	});
 
 	ws.addEventListener('close', (e) => {
-	  console.log(e);
 	  if (e.wasClean) {
 	    console.log('WebSocket connection closed cleanly');
 	  } else {
@@ -27,6 +22,7 @@ export async function socketListener (username) {
 
 	ws.addEventListener('message', async (e) => {
 		const data = JSON.parse(e.data);
+<<<<<<< Updated upstream
 		console.log(data);
 	  if (data['$type'] === "place.stream.chat.defs#messageView"
 		&& Date.parse(data["record"]["createdAt"]) > cursor) {
@@ -35,14 +31,17 @@ export async function socketListener (username) {
 			}
 			messages[username].push(data);
 			cursor = Date.parse(data["record"]["createdAt"]);
+=======
+	  if (data['$type'] === "place.stream.chat.defs#messageView") {
+			messages.push(data);
+>>>>>>> Stashed changes
 		}
 	});
-}
-
-export async function getMessages(username, count) {
-	if (!(username in messages)) {
-		messages[username] = [];
+	
+	function getMessages() {
+		return messages;
 	}
+<<<<<<< Updated upstream
 	return messages[username].slice(-1*count);
 }
 
@@ -70,4 +69,6 @@ export async function getLatestFollower(username) {
 	console.log(followerData);
 	if (followerData?.followers?.length > 0) return followerData?.followers[0];
 	return "";
+=======
+>>>>>>> Stashed changes
 }

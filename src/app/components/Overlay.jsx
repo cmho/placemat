@@ -2,15 +2,18 @@
 
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { socketListener, getFeedMessages, getLatestFollower, getMessages } from './SocketListener';
+import { getFeedMessages } from './GetFeedMessages';
+import { getLatestFollower } from './GetLatestFollower';
 import ProgressBar from './ProgressBar';
 import List from './List';
 import Timer from './Timer';
+import useWebSocket from 'react-use-websocket';
 import styles from '../overlay.module.css';
 
 export default function Overlay () {
 	function OverlayContent() {
 		const params = useSearchParams();
+		const username = params.get("username");
 		const [messages, setMessages] = useState([]);
 		const [feedMessages, setFeedMessages] = useState([]);
 		const [latestFollower, setLatestFollower] = useState("");
@@ -35,6 +38,17 @@ export default function Overlay () {
 		const followerAlertsRef = useRef(null);
 		const alertImageRef = useRef(null);
 		const alertTextRef = useRef(null);
+		
+		const { getWebSocket } = useWebSocket(
+	    'wss://stream.place/api/websocket/'+params.get("username"),
+	    {
+	      share: false,
+	      shouldReconnect: () => true,
+				onMessage: (event) => {
+					console.log(event);
+				}
+	    },
+	  );
 
 		// regexes for parsing incoming messages
 		const isTimerStart = new RegExp("^!start ([a-zA-Z0-9_\-]+)$");
@@ -53,15 +67,16 @@ export default function Overlay () {
 			return alertImages[Math.floor(Math.random() * alertImages.length)];
 		}
 	
-		useEffect(() => {
+		/*useEffect(() => {
 			setInterval(async () => {
-				const newMessages = await getMessages(params.get("username"), params.get("msglimit"));
+				console.log('getting messages');
+				//const filteredMessages = [...(newMessages.filter((msg) => Date.parse(msg?.post?.record?.createdAt) > cursor))];
 				if (newMessages && newMessages.length > 0) {
-					setMessages([...messages, ...(newMessages.filter((msg) => Date.parse(msg.post.record.createdAt) > cursor))]);
+					setMessages(newMessages);
 				}
 				const widgetUpdates = {...widgets};
 				newMessages.filter((msg) => {
-					return (msg.post.author.handle === username)
+					return (msg?.post?.author?.handle === username)
 				}).forEach((record) => {
 					const msg = record.post.record.text;
 					if (isTimerStart.test(msg)) {
@@ -94,7 +109,7 @@ export default function Overlay () {
 					}
 				});
 			}, 500);
-		}, []);
+		}, []);*/
 	
 		useEffect(() => {
 			if (params.get("showFeed")) {
@@ -129,7 +144,7 @@ export default function Overlay () {
 					<ul id="messages" className={styles.messages}>
 					{messages ? messages.slice(-1*params.get("msgcount")).map((msg) => {
 						<li>
-							{msg.data.content}
+							{msg.data?.content}
 						</li>
 					}) : ''}
 					</ul>
