@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { getFeedMessages } from './GetFeedMessages';
 import { getLatestFollower } from './GetLatestFollower';
+import { WebSocket } from 'ws';
 import ProgressBar from './ProgressBar';
 import List from './List';
 import Timer from './Timer';

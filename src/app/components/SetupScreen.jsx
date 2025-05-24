@@ -23,6 +23,7 @@ export default function SetupScreen () {
 			return {};
 		}
 	});
+	const [presetsList, setPresetsList] = useState([]);
 	
 	const followerDisplayOptions = [{value: "handle", label: "Handle (e.g. handle.bsky.social)"}, {value: "displayname", label: "Display Name (e.g. Jane Smith)"}];
 	
@@ -76,6 +77,12 @@ export default function SetupScreen () {
 		setCurrentPreset({...presets[name]});
 		widgetsRef.current = presets[name].widgets;
 	}
+	
+	useEffect(() => {
+		let keysList = Object.keys(presets);
+		keysList.splice(0, 0, "");
+		setPresetsList(keysList);
+	}, [presets]);
 	
 	const getPresetKey = () => {
 		if (presetRef.current.value === "") {
@@ -213,11 +220,10 @@ export default function SetupScreen () {
 				<div>
 					<label htmlFor="presets">Preset <button type="button" onClick={() => importRef.current.click()}>Import</button> <button type="button" onClick={exportData}>Export</button></label>
 					<select name="presets" className={styles.presetSelect} id="presets" ref={presetRef} onChange={() => loadPreset(presetRef.current.value)}>
-						<option key="new" value="">New...</option>
-							{presets ? Object.keys(presets)?.map((p, i) => {
+							{presetsList ? presetsList.map((p, i) => {
 								return(
 									<option value={p} key={i}>
-										{p}
+										{p !== "" ? p : 'New...'}
 									</option>
 								)
 							}) : null}
