@@ -12,6 +12,7 @@
 
 .messagesWrapper {
 	position: absolute;
+	overflow: hidden;
 	z-index: 2;
 }
 
@@ -19,15 +20,25 @@
 	list-style: none;
 	margin: 0;
 	padding: 0;
+	height: 100%;
+	display: flex;
+	flex-direction: column-reverse;
 }
 
 .messages li {
 	margin-bottom: 20px;
 }
 
+.messages li:first-child {
+	margin-bottom: 0;
+}
+
 .latestFollower {
 	position: absolute;
 	z-index: 99;
+	white-space: pre;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .widget {

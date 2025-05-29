@@ -274,7 +274,7 @@ export default function SetupScreen () {
 					</FormToggleSection>
 				</FormSection>
 				<FormSection title="Custom Formatting">
-					<TextareaRow id="customtemplate" label="Custom Message Template" help="Use {author} to print the author handle and {message} to print the message. The whole thing will be wrapped in a &lt;li&gt; element that has &quot;even&quot; or &quot;odd&quot; applied to it, alternating." value={currentPreset?.customtemplate} ref={msgTemplateRef} callback={() => updateCurrentPreset()} />
+					<TextareaRow id="customtemplate" label="Custom Message Template" help="Use {author} to print the author handle, {color} to print the author color (e.g. to use in the style attribute), and {message} to print the message. The whole thing will be wrapped in a &lt;li&gt; element that has &quot;even&quot; or &quot;odd&quot; applied to it, alternating." value={currentPreset?.customtemplate} ref={msgTemplateRef} callback={() => updateCurrentPreset()} />
 					<TextareaRow id="customhtml" label="Custom HTML" help="Add any custom HTML you want here—e.g. if you want to display a hashtag, include a widget from somewhere, etc. Can include Javascript if you're spicy." value={currentPreset?.customhtml} ref={htmlRef} callback={() => updateCurrentPreset()} />
 					<TextareaRow id="css" label="Custom CSS" help="Some minimal styles will be applied if nothing is entered." value={currentPreset?.css} ref={cssRef} callback={() => updateCurrentPreset()} />
 				</FormSection>

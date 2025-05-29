@@ -1,22 +1,19 @@
-'use client';
-
 import SetupScreen from './components/SetupScreen';
 import Overlay from './components/Overlay';
 import styles from "./page.module.css";
-import { useState, useEffect, useRef, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
-export default function Home() {
+export default async function Home({params, searchParams}) {
+	const data = await searchParams;
 	const RenderPage = () => {
-		const params = useSearchParams();
 		
-		if (params.size === 0) {
+		if (Object.keys(data).length === 0) {
 			return(
 				<SetupScreen />
 			);
 		} 
 		return(
-			<Overlay />
+			<Overlay params={data} />
 		);
 	}
 	
