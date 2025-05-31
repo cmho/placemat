@@ -18,7 +18,7 @@ export default function SetupScreen () {
 	const [presets, setPresets] = useState(() => {
 		try {
 			const storedPresets = localStorage.getItem('presets');
-			return JSON.parse(storedPresets);
+			return JSON.parse(storedPresets || {});
 		} catch {
 			return {};
 		}
