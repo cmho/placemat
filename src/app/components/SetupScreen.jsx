@@ -80,8 +80,10 @@ export default function SetupScreen () {
 	
 	useEffect(() => {
 		let keysList = Object.keys(presets);
-		keysList.splice(0, 0, "");
-		setPresetsList(keysList);
+		if (keysList) {
+			keysList.splice(0, 0, "");
+			setPresetsList(keysList);
+		}
 	}, [presets]);
 	
 	const getPresetKey = () => {
